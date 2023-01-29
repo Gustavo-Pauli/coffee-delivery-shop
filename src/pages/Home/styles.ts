@@ -21,10 +21,6 @@ export const IntroSection = styled(DefaultSection)`
   }
 `
 
-export const ShopSection = styled(DefaultSection)`
-  min-height: 544px;
-`
-
 const defaultDivContainer = styled.div`
   max-width: 1120px;
   display: flex;
@@ -36,7 +32,7 @@ export const IntroContainer = styled(defaultDivContainer)`
   height: 360px;
   display: flex;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     align-items: center;
     height: auto;
     flex-direction: column-reverse;
@@ -51,7 +47,8 @@ export const IntroContainer = styled(defaultDivContainer)`
     }
   }
 
-  @media (min-width: 961px) {
+  @media (min-width: 1024px) {
+    // q isso?
     height: auto;
   }
 
@@ -72,30 +69,9 @@ export const IntroContainer = styled(defaultDivContainer)`
   }
 `
 
-export const ShopContainer = styled(defaultDivContainer)`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 157px;
-
-  > h3 {
-    margin-top: 32px;
-    margin-bottom: 52px;
-    font-family: 'Baloo 2';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 32px;
-    line-height: 130%;
-  }
-
-  > div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    // card
-    > div {
-      margin-top: 40px;
-    }
+export const IntroImg = styled.img`
+  @media (max-width: 1024px) {
+    width: 100%;
   }
 `
 
@@ -132,6 +108,7 @@ export const IntroItemList = styled.ul`
   li {
     display: flex;
     align-items: center;
+    line-height: 120%;
 
     color: ${(props) => props.theme['base-text']};
   }
@@ -143,6 +120,10 @@ export const IntroItemList = styled.ul`
     border-radius: 50%;
     margin-right: 12px;
     flex: 0 0 auto;
+
+    @media (max-width: 1024px) {
+      margin-right: 8px;
+    }
 
     svg {
       color: ${(props) => props.theme.white};
@@ -164,5 +145,52 @@ export const IntroItemList = styled.ul`
 
   & > li:nth-child(4) > div {
     background: ${(props) => props.theme.purple};
+  }
+`
+
+export const ShopSection = styled(DefaultSection)`
+  min-height: 544px;
+`
+
+export const ShopContainer = styled(defaultDivContainer)`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 157px;
+  margin-top: 32px;
+
+  > h3 {
+    margin-bottom: 52px;
+    font-family: 'Baloo 2';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 130%;
+  }
+
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 32px;
+    align-items: center;
+
+    // card
+    > div {
+      margin-top: 40px;
+
+      @media (max-width: 842px) {
+        // width: calc(50vw - 16px - 8px);
+        // height: 350px;
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    align-items: center;
+    margin-top: 96px;
+
+    > h3 {
+      margin-bottom: 16px;
+    }
   }
 `

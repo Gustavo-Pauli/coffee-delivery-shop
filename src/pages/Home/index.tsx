@@ -5,6 +5,7 @@ import {
   IntroSection,
   ShopSection,
   IntroItemList,
+  IntroImg,
 } from './styles'
 import CoffeeIntro from '../../assets/CoffeeIntro.png'
 import IntroBackground from '../../assets/IntroBackground.png'
@@ -52,7 +53,7 @@ export function Home() {
             </IntroItemList>
           </div>
           <div>
-            <img
+            <IntroImg
               src={CoffeeIntro}
               alt="Copo de café de papel com pó e grãos de café em plano de fundo"
             />
@@ -64,14 +65,20 @@ export function Home() {
         <ShopContainer>
           <h3>Nossos cafés</h3>
           <div>
-            <CoffeeCard />
-            <CoffeeCard />
-            <CoffeeCard />
-            <CoffeeCard />
-            <CoffeeCard />
-            <CoffeeCard />
-            <CoffeeCard />
-            <CoffeeCard />
+            <CoffeeCard coffee="Expresso Tradicional" />
+            <CoffeeCard coffee="Expresso Americano" />
+            <CoffeeCard coffee="Expresso Cremoso" />
+            <CoffeeCard coffee="Expresso Gelado" />
+            <CoffeeCard coffee="Café com Leite" />
+            <CoffeeCard coffee="Latte" />
+            <CoffeeCard coffee="Capuccino" />
+            <CoffeeCard coffee="Macchiato" />
+            <CoffeeCard coffee="Mocaccino" />
+            <CoffeeCard coffee="Chocolate Quente" />
+            <CoffeeCard coffee="Cubano" />
+            <CoffeeCard coffee="Havaiano" />
+            <CoffeeCard coffee="Árabe" />
+            <CoffeeCard coffee="Irlandês" />
           </div>
         </ShopContainer>
       </ShopSection>

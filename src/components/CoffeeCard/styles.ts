@@ -23,6 +23,7 @@ export const Wrapper = styled.div`
   & > h5 {
     margin-top: 16px;
 
+    text-align: center;
     font-family: 'Baloo 2';
     font-style: normal;
     font-weight: 700;
@@ -47,27 +48,28 @@ export const Wrapper = styled.div`
 `
 
 export const Tag = styled.div`
-  width: 81px;
-  height: 21px;
-
   margin-top: 12px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 9999px;
-  background: ${(props) => props.theme['yellow-light']};
+  column-gap: 4px;
 
   > span {
     font-family: 'Roboto';
+    padding: 4px 8px;
+
     font-style: normal;
     font-weight: 700;
     font-size: 10px;
     text-transform: uppercase;
     text-align: center;
     line-height: 130%;
+
+    border-radius: 9999px;
     color: ${(props) => props.theme['yellow-dark']};
+    background: ${(props) => props.theme['yellow-light']};
   }
 `
 
