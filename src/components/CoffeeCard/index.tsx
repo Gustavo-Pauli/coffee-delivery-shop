@@ -15,6 +15,8 @@ import irlandesSrc from './../../assets/coffeeImages/Irlandês.png'
 import latteSrc from './../../assets/coffeeImages/Latte.png'
 import macchiatoSrc from './../../assets/coffeeImages/Macchiato.png'
 import mochaccinoSrc from './../../assets/coffeeImages/Mochaccino.png'
+import { NumberInputSpinner } from '../NumberInput'
+import { ChangeEvent, useState } from 'react'
 
 // const ['Expresso Tradicional', 'Expresso Americano', 'Expresso Cremoso', 'Expresso Gelado', 'Café com Leite', 'Latte', 'Capuccino', 'Macchiato', 'Mocaccino', 'Chocolate Quente', 'Cubano', 'Havaiano', 'Árabe', 'Irlandês'] =
 
@@ -56,6 +58,8 @@ interface CoffeeCardProps {
 }
 
 export function CoffeeCard({ coffee }: CoffeeCardProps) {
+  const [inputSpinnerValue, setInputSpinnerValue] = useState(1)
+
   return (
     <Wrapper>
       <img src={coffeeImgSrcs[coffee]} alt="xícara de café" />
@@ -68,6 +72,7 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
       <p>{coffeesData[coffee].description}</p>
       <Footer>
         <Price>{coffeesData[coffee].price}</Price>
+        <NumberInputSpinner value={inputSpinnerValue} />
       </Footer>
     </Wrapper>
   )
