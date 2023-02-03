@@ -2,21 +2,12 @@ import { ChangeEvent, useState } from 'react'
 import { MinusButton, PlusButton, StyledInput, Wrapper } from './styles'
 import { Plus, Minus } from 'phosphor-react'
 
-// export function NumberInput() {}
-
-// interface NumberInputSpinnerProps {
-//   min: number
-//   max: number
-//   step: number
-//   value: number
-//   onChange: (() => void) => void
-// }
-
 interface NumberInputSpinnerProps {
   value: number
   min?: number
   max?: number
   step?: number
+  height?: string
   onChange?: (value: number) => void
 }
 
@@ -25,6 +16,7 @@ export function NumberInputSpinner({
   max = 99,
   step = 1,
   value,
+  height = '38px',
   onChange,
 }: NumberInputSpinnerProps) {
   const [currentValue, setCurrentValue] = useState(value)
@@ -62,7 +54,7 @@ export function NumberInputSpinner({
   }
 
   return (
-    <Wrapper>
+    <Wrapper height={height}>
       <MinusButton onClick={handleDecrement}>
         <Minus weight="bold" size={'0.875rem'} />
       </MinusButton>

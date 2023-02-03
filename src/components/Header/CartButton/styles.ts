@@ -8,4 +8,8 @@ export const ButtonWrapper = styled.button`
   border-radius: 6px;
 
   color: ${(props) => props.theme['yellow-dark']};
+
+  :hover {
+    cursor: pointer;
+  }
 `

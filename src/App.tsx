@@ -4,17 +4,17 @@ import { defaultTheme } from './styles/themes/default'
 
 import { BrowserRouter } from 'react-router-dom'
 import { Router } from '../Router'
+import { CartContextProvider } from './contexts/CartContext/CartContext'
 
-function App() {
+export default function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <BrowserRouter>
-        <Router />
-
-        <GlobalStyle />
-      </BrowserRouter>
-    </ThemeProvider>
+    <CartContextProvider>
+      <ThemeProvider theme={defaultTheme}>
+        <BrowserRouter>
+          <Router />
+          <GlobalStyle />
+        </BrowserRouter>
+      </ThemeProvider>
+    </CartContextProvider>
   )
 }
-
-export default App

@@ -7,7 +7,9 @@ import { MapPin } from 'phosphor-react'
 export function Header() {
   return (
     <Wrapper>
-      <img src={Logo} alt="Coffee delivery logo" />
+      <NavLink to={'/'}>
+        <img src={Logo} alt="Coffee delivery logo" />
+      </NavLink>
 
       <div>
         <CityStateButton>

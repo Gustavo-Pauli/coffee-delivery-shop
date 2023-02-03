@@ -1,10 +1,16 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
-  height: 2rem;
+interface WrapperProps {
+  height?: string
+}
+
+export const Wrapper = styled.div<WrapperProps>`
+  height: ${(props) => props.height};
   width: 4.75rem;
   background: ${(props) => props.theme['base-button']};
+
   border-radius: 6px;
+  overflow: hidden;
 
   display: flex;
   align-items: center;
@@ -30,8 +36,15 @@ export const StyledInput = styled.input`
 `
 
 export const StyledButton = styled.button`
+  width: 100%;
+  height: 100%;
+
   border: none;
   background: ${(props) => props.theme['base-button']};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   cursor: pointer;
   color: ${(props) => props.theme.purple};

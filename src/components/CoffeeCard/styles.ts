@@ -74,7 +74,9 @@ export const Tag = styled.div`
 `
 
 export const Footer = styled.div`
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   margin-top: auto;
 `
 
@@ -97,4 +99,28 @@ export const Price = styled.div`
 
     color: ${(props) => props.theme['base-text']};
   }
+`
+
+export const AddToCartButton = styled.button`
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: ${(props) => props.theme['purple-dark']};
+  color: ${(props) => props.theme.white};
+
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.1s;
+  :hover {
+    background: ${(props) => props.theme.purple};
+    cursor: pointer;
+  }
+`
+
+export const FooterRightSide = styled.div`
+  display: flex;
+  gap: 8px;
 `
