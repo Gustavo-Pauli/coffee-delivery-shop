@@ -286,3 +286,31 @@ export const ProductListItemPrice = styled.div`
   font-size: 16px;
   line-height: 130%;
 `
+
+export const ConfirmOrderButton = styled.button`
+  width: 100%;
+  height: 2.875rem;
+  border: none;
+  border-radius: 6px;
+  background: ${(props) => props.theme.yellow};
+  color: ${(props) => props.theme.white};
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 160%;
+
+  transition: background 0.1s;
+
+  :hover {
+    background: ${(props) => props.theme['yellow-dark']};
+    cursor: pointer;
+  }
+`
+
+export const OrderFooter = styled.div``
+
+export const OrderFooterInfo = styled.div``
+
+export const OrderFooterTotal = styled.div``

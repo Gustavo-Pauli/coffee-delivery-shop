@@ -19,6 +19,11 @@ import {
   ProductListItemMiddle,
   RemoveButton,
   ProductListItemPrice,
+  ConfirmOrderButton,
+  SelectedCoffeesFooter,
+  OrderFooter,
+  OrderFooterInfo,
+  OrderFooterTotal,
 } from './styles'
 import {
   MapPinLine,
@@ -31,21 +36,32 @@ import {
 // import { ButtonRadioGroup } from '../../components/ButtonRadioGroup'
 import { ButtonRadio } from '../../components/ButtonRadioGroup/ButtonRadio'
 import { ProductImage } from '../../components/ProductImage'
-import React, { useContext } from 'react'
+import React, { FormEvent, useContext } from 'react'
 import { CartContext } from '../../contexts/CartContext/CartContext'
 import { NumberInputSpinner } from '../../components/NumberInput'
 
 import coffeesData from '../../database/coffeesData.json'
+import { Coffee } from '../../@types/coffee'
 
 export function Checkout() {
   const cart = useContext(CartContext)
 
-  function handleChangeItemQuantity(itemName: string) {}
+  function handleChangeItemQuantity(productName: Coffee, toQuantity: number) {
+    cart.modifyProductToXQuantity(productName, toQuantity)
+  }
+
+  function handleRemoveProduct(name: Coffee) {
+    cart.removeProduct(name)
+  }
+
+  function handleFormSubmit(event: FormEvent) {
+    // event.preventDefault()
+  }
 
   return (
     <Wrapper>
       {/* <h3>Complete seu pedido</h3> */}
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <LeftSide>
           <h1>Complete seu pedido</h1>
           <CompleteOrder>
@@ -122,12 +138,15 @@ export function Checkout() {
                       <div>
                         <NumberInputSpinner
                           value={product.quantity}
-                          onChange={() =>
-                            handleChangeItemQuantity(product.name)
+                          onChange={(value) =>
+                            handleChangeItemQuantity(product.name, value)
                           }
                           height={'2rem'}
                         />
-                        <RemoveButton>
+                        <RemoveButton
+                          type="button"
+                          onClick={() => handleRemoveProduct(product.name)}
+                        >
                           <Trash size={'1rem'} />
                           <span>REMOVER</span>
                         </RemoveButton>
@@ -141,14 +160,37 @@ export function Checkout() {
                 </React.Fragment>
               ))}
             </ProductList>
-            <div>
-              <div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-              <button></button>
-            </div>
+            <OrderFooter>
+              <OrderFooterInfo>
+                <OrderFooterInfo>
+                  <div>Total de items</div>
+                  <div>
+                    {cart.products
+                      .reduce((accumulator, product) => {
+                        return (
+                          accumulator +
+                          product.quantity * +coffeesData[product.name].price
+                        )
+                      }, 0)
+                      .toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      })}
+                  </div>
+                </OrderFooterInfo>
+                <OrderFooterInfo>
+                  <div></div>
+                  <div></div>
+                </OrderFooterInfo>
+                <OrderFooterTotal>
+                  <div></div>
+                  <div></div>
+                </OrderFooterTotal>
+              </OrderFooterInfo>
+              <ConfirmOrderButton type="submit">
+                CONFIRMAR PEDIDO
+              </ConfirmOrderButton>
+            </OrderFooter>
           </SelectedCoffees>
         </RightSide>
       </form>

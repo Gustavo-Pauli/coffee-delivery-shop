@@ -45,17 +45,27 @@ export function NumberInputSpinner({
     const isNum = !isNaN(parseInt(event.target.value))
 
     if (isNum) {
-      setCurrentValue(
-        Math.min(Math.max(parseInt(event.target.value, 10), min), max),
+      const newValue = Math.min(
+        Math.max(parseInt(event.target.value, 10), min),
+        max,
       )
+      setCurrentValue(newValue)
+
+      if (onChange) {
+        onChange(newValue)
+      }
     } else {
       setCurrentValue(min)
+
+      if (onChange) {
+        onChange(min)
+      }
     }
   }
 
   return (
     <Wrapper height={height}>
-      <MinusButton onClick={handleDecrement}>
+      <MinusButton onClick={handleDecrement} type="button">
         <Minus weight="bold" size={'0.875rem'} />
       </MinusButton>
       <StyledInput
@@ -63,7 +73,7 @@ export function NumberInputSpinner({
         onChange={handleInputChange}
         pattern="[0-9]*"
       />
-      <PlusButton onClick={handleIncrement}>
+      <PlusButton onClick={handleIncrement} type="button">
         <Plus weight="bold" size={'0.875rem'} />
       </PlusButton>
     </Wrapper>

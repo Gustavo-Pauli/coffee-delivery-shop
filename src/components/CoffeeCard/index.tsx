@@ -12,8 +12,6 @@ import React, { useContext, useState } from 'react'
 import { ShoppingCart } from 'phosphor-react'
 import { CartContext } from '../../contexts/CartContext/CartContext'
 
-// const ['Expresso Tradicional', 'Expresso Americano', 'Expresso Cremoso', 'Expresso Gelado', 'Café com Leite', 'Latte', 'Capuccino', 'Macchiato', 'Mocaccino', 'Chocolate Quente', 'Cubano', 'Havaiano', 'Árabe', 'Irlandês'] =
-
 import { Coffee } from '../../@types/coffee'
 import { ProductImage } from '../ProductImage'
 
@@ -22,11 +20,11 @@ interface CoffeeCardProps {
 }
 
 export function CoffeeCard({ coffee }: CoffeeCardProps) {
-  const { addProduct } = useContext(CartContext)
+  const { addOrIncreaseProduct } = useContext(CartContext)
   const [inputSpinnerValue, setInputSpinnerValue] = useState(1)
 
-  function handleAddProductToCart(event: React.MouseEvent<HTMLButtonElement>) {
-    addProduct(
+  function handleAddProductToCart(/* event: React.MouseEvent<HTMLButtonElement> */) {
+    addOrIncreaseProduct(
       coffeesData[coffee].id,
       coffeesData[coffee].name as Coffee,
       inputSpinnerValue,
