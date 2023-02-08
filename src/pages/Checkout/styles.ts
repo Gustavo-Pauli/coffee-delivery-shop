@@ -309,8 +309,45 @@ export const ConfirmOrderButton = styled.button`
   }
 `
 
-export const OrderFooter = styled.div``
+export const OrderFooter = styled.div`
+  width: 100%;
+`
 
-export const OrderFooterInfo = styled.div``
+export const OrderFooterInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 24px 0;
+`
 
-export const OrderFooterTotal = styled.div``
+export const OrderFooterInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 130%;
+
+    display: flex;
+    align-items: center;
+  }
+
+  div:last-child {
+    font-size: 1rem;
+  }
+`
+
+export const OrderFooterTotal = styled(OrderFooterInfo)`
+  div {
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+
+  div:last-child {
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+`

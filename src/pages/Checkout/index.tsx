@@ -20,8 +20,8 @@ import {
   RemoveButton,
   ProductListItemPrice,
   ConfirmOrderButton,
-  SelectedCoffeesFooter,
   OrderFooter,
+  OrderFooterInfoWrapper,
   OrderFooterInfo,
   OrderFooterTotal,
 } from './styles'
@@ -34,9 +34,10 @@ import {
   Trash,
 } from 'phosphor-react'
 // import { ButtonRadioGroup } from '../../components/ButtonRadioGroup'
+import React, { FormEvent, useContext } from 'react'
+import { useForm } from 'react-hook-form'
 import { ButtonRadio } from '../../components/ButtonRadioGroup/ButtonRadio'
 import { ProductImage } from '../../components/ProductImage'
-import React, { FormEvent, useContext } from 'react'
 import { CartContext } from '../../contexts/CartContext/CartContext'
 import { NumberInputSpinner } from '../../components/NumberInput'
 
@@ -46,6 +47,13 @@ import { Coffee } from '../../@types/coffee'
 export function Checkout() {
   const cart = useContext(CartContext)
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
+
   function handleChangeItemQuantity(productName: Coffee, toQuantity: number) {
     cart.modifyProductToXQuantity(productName, toQuantity)
   }
@@ -54,14 +62,14 @@ export function Checkout() {
     cart.removeProduct(name)
   }
 
-  function handleFormSubmit(event: FormEvent) {
+  function handleFormSubmit() {
     // event.preventDefault()
   }
 
   return (
     <Wrapper>
       {/* <h3>Complete seu pedido</h3> */}
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
         <LeftSide>
           <h1>Complete seu pedido</h1>
           <CompleteOrder>
@@ -161,7 +169,7 @@ export function Checkout() {
               ))}
             </ProductList>
             <OrderFooter>
-              <OrderFooterInfo>
+              <OrderFooterInfoWrapper>
                 <OrderFooterInfo>
                   <div>Total de items</div>
                   <div>
@@ -179,14 +187,26 @@ export function Checkout() {
                   </div>
                 </OrderFooterInfo>
                 <OrderFooterInfo>
-                  <div></div>
-                  <div></div>
+                  <div>Entrega</div>
+                  <div>R$ 3,50</div>
                 </OrderFooterInfo>
                 <OrderFooterTotal>
-                  <div></div>
-                  <div></div>
+                  <div>Total</div>
+                  <div>
+                    {cart.products
+                      .reduce((accumulator, product) => {
+                        return (
+                          accumulator +
+                          product.quantity * +coffeesData[product.name].price
+                        )
+                      }, 3.5)
+                      .toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      })}
+                  </div>
                 </OrderFooterTotal>
-              </OrderFooterInfo>
+              </OrderFooterInfoWrapper>
               <ConfirmOrderButton type="submit">
                 CONFIRMAR PEDIDO
               </ConfirmOrderButton>
