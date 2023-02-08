@@ -8,7 +8,11 @@ export const Wrapper = styled.div`
     gap: 32px;
 
     @media (max-width: 1152px) {
-      margin: 0 16px;
+      width: 100%;
+      padding: 0 16px;
+      flex-direction: column-reverse;
+      gap: 48px;
+      align-items: center;
     }
   }
 `
@@ -24,6 +28,10 @@ export const LeftSide = styled.div`
     line-height: 130%;
     color: ${(props) => props.theme['base-title']};
   }
+
+  @media (max-width: 672px) {
+    width: 100%;
+  }
 `
 
 export const RightSide = styled.div`
@@ -36,6 +44,14 @@ export const RightSide = styled.div`
     font-size: 18px;
     line-height: 130%;
     color: ${(props) => props.theme['base-title']};
+  }
+
+  @media (max-width: 1152px) {
+    width: 640px;
+  }
+
+  @media (max-width: 672px) {
+    width: 100%;
   }
 `
 
@@ -118,18 +134,25 @@ export const AddressInputWrapper = styled.div`
 `
 
 export const AddressInputGroup = styled.div`
+  width: 100%;
   display: flex;
-  height: 2.625rem;
+  /* height: 2.625rem; */
   column-gap: 12px;
+
+  row-gap: 16px;
+  flex-wrap: wrap;
 `
 
+// ==================================================================
+
 export const AddressInput = styled.input`
+  /* flex: 1 0 auto; */
   height: 2.625rem;
   padding-left: 12px;
 
   color: ${(props) => props.theme['base-text']};
   background: ${(props) => props.theme['base-input']};
-  border: 2px solid ${(props) => props.theme['base-button']};
+  border: 1px solid ${(props) => props.theme['base-button']};
   border-radius: 4px;
 
   font-family: 'Roboto';
@@ -139,7 +162,7 @@ export const AddressInput = styled.input`
   line-height: 130%;
 
   :focus {
-    border: 2px solid ${(props) => props.theme['yellow-dark']};
+    border: 1px solid ${(props) => props.theme['yellow-dark']};
     outline: none;
     // outline: 2px solid ${(props) => props.theme['yellow-dark']};
   }
@@ -148,6 +171,30 @@ export const AddressInput = styled.input`
     color: ${(props) => props.theme['base-label']};
   }
 `
+
+export const AddressInputCEP = styled(AddressInput)`
+  width: 200px;
+`
+export const AddressInputStreet = styled(AddressInput)`
+  width: 100%;
+`
+export const AddressInputNumber = styled(AddressInput)`
+  width: 200px;
+`
+export const AddressInputComplement = styled(AddressInput)`
+  flex: 1 1 0;
+`
+export const AddressInputDistrict = styled(AddressInput)`
+  width: 200px;
+`
+export const AddressInputCity = styled(AddressInput)`
+  flex: 1 1 0;
+`
+export const AddressInputState = styled(AddressInput)`
+  width: 60px;
+`
+
+// ==================================================================
 
 export const PaymentTypeButton = styled.div`
   display: flex;
@@ -180,9 +227,13 @@ export const PaymentTypeButton = styled.div`
 
 export const ButtonRadioGroup = styled.div`
   display: flex;
-  justify-content: space-between;
   gap: 12px;
   /* flex: 1 0 auto; */
+  /* flex-wrap: wrap; */
+
+  @media (max-width: 672px) {
+    flex-direction: column;
+  }
 
   input[type='radio']:checked + label div {
     box-sizing: border-box;

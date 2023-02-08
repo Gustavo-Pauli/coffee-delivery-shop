@@ -24,6 +24,13 @@ import {
   OrderFooterInfoWrapper,
   OrderFooterInfo,
   OrderFooterTotal,
+  AddressInputCEP,
+  AddressInputStreet,
+  AddressInputNumber,
+  AddressInputComplement,
+  AddressInputDistrict,
+  AddressInputCity,
+  AddressInputState,
 } from './styles'
 import {
   MapPinLine,
@@ -84,16 +91,19 @@ export function Checkout() {
                 </CardHeaderTitle>
               </CardHeader>
               <AddressInputWrapper>
-                <AddressInput type="text" placeholder="CEP" />
-                <AddressInput type="text" placeholder="Rua" />
+                <AddressInputCEP type="text" placeholder="CEP" />
+                <AddressInputStreet type="text" placeholder="Rua" />
                 <AddressInputGroup>
-                  <AddressInput type="text" placeholder="Número" />
-                  <AddressInput type="text" placeholder="Complemento" />
+                  <AddressInputNumber type="text" placeholder="Número" />
+                  <AddressInputComplement
+                    type="text"
+                    placeholder="Complemento"
+                  />
                 </AddressInputGroup>
                 <AddressInputGroup>
-                  <AddressInput type="text" placeholder="Bairro" />
-                  <AddressInput type="text" placeholder="Cidade" />
-                  <AddressInput type="text" placeholder="UF" />
+                  <AddressInputDistrict type="text" placeholder="Bairro" />
+                  <AddressInputCity type="text" placeholder="Cidade" />
+                  <AddressInputState type="text" placeholder="UF" />
                 </AddressInputGroup>
               </AddressInputWrapper>
             </Address>
