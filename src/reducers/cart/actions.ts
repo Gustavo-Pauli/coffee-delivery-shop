@@ -1,9 +1,12 @@
 import { Coffee } from '../../@types/coffee'
+import { CartContextType } from '../../contexts/CartContext/CartContext'
 
 export enum ActionTypes {
   ADD_PRODUCT = 'ADD_PRODUCT',
   REMOVE_PRODUCT = 'REMOVE_PRODUCT',
   MODIFY_PRODUCT_TO_X_QUANTITY = 'MODIFY_PRODUCT_TO_X_QUANTITY',
+  MODIFY_ADDRESS = 'MODIFY_ADDRESS',
+  CLEAR_CART = 'CLEAR_CART',
 }
 
 export function addOrIncreaseProductAction(
@@ -36,6 +39,15 @@ export function modifyProductToXQuantityAction(name: Coffee, quantity: number) {
     payload: {
       name,
       quantity,
+    },
+  }
+}
+
+export function modifyAddressAction(address: CartContextType['address']) {
+  return {
+    type: ActionTypes.MODIFY_ADDRESS,
+    payload: {
+      address,
     },
   }
 }

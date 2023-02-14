@@ -4,16 +4,17 @@ import {
   addOrIncreaseProductAction,
   removeProductAction,
   modifyProductToXQuantityAction,
+  modifyAddressAction,
 } from '../../reducers/cart/actions'
 import { cartReducer, Product } from '../../reducers/cart/reducer'
 
-interface CartContextType {
+export interface CartContextType {
   products: Product[]
   address: {
-    zipCode: string
+    zipCode: number
     street: string
-    number: string
-    complement: string
+    number: number
+    complement?: string
     district: string
     city: string
     state: string
@@ -22,6 +23,7 @@ interface CartContextType {
   addOrIncreaseProduct: (id: string, name: Coffee, quantity: number) => void
   removeProduct: (name: Coffee) => void
   modifyProductToXQuantity: (name: Coffee, quantity: number) => void
+  modifyAddress: (address: CartContextType['address']) => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -29,9 +31,9 @@ export const CartContext = createContext({} as CartContextType)
 const reducerInitialValues = {
   products: [],
   address: {
-    zipCode: '',
+    zipCode: null,
     street: '',
-    number: '',
+    number: null,
     complement: '',
     district: '',
     city: '',
@@ -48,25 +50,23 @@ interface CartContextProviderProps {
 // JSON.parse(storedStateAsJSON)
 
 function initReducer(initialArg: typeof reducerInitialValues) {
-  const productsStoredStateAsJSON = localStorage.getItem(
-    '@coffee-shop:cart-state-products-1.0.0',
-  )
+  const storedStateAsJSON = localStorage.getItem('@coffee-shop:cart-state')
 
-  if (productsStoredStateAsJSON) {
-    // JSON.parse(storedStateAsJSON)
-    return {
-      products: JSON.parse(productsStoredStateAsJSON),
-      address: {
-        zipCode: '',
-        street: '',
-        number: '',
-        complement: '',
-        district: '',
-        city: '',
-        state: '',
-      },
-      paymentMethod: null,
-    }
+  if (storedStateAsJSON) {
+    return JSON.parse(storedStateAsJSON)
+    //   return {
+    //     products: JSON.parse(productsStoredStateAsJSON),
+    //     address: {
+    //       zipCode: '',
+    //       street: '',
+    //       number: '',
+    //       complement: '',
+    //       district: '',
+    //       city: '',
+    //       state: '',
+    //     },
+    //     paymentMethod: null,
+    //   }
   } else {
     return initialArg
   }
@@ -80,9 +80,9 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   ) // TODO add init prop to load localstorage
 
   useEffect(() => {
-    const stateJSON = JSON.stringify(cartState.products)
+    const stateJSON = JSON.stringify(cartState)
 
-    localStorage.setItem('@coffee-shop:cart-state-products-1.0.0', stateJSON)
+    localStorage.setItem('@coffee-shop:cart-state', stateJSON)
   }, [cartState])
 
   const { products, address, paymentMethod } = cartState
@@ -99,6 +99,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(modifyProductToXQuantityAction(name, quantity))
   }
 
+  function modifyAddress(address: CartContextType['address']) {
+    dispatch(modifyAddressAction(address))
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -108,6 +112,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         addOrIncreaseProduct,
         removeProduct,
         modifyProductToXQuantity,
+        modifyAddress,
       }}
     >
       {children}

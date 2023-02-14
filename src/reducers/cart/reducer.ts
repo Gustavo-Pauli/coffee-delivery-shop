@@ -54,6 +54,7 @@ export function cartReducer(state: any, action: any) {
         }
       }
     }
+
     case ActionTypes.REMOVE_PRODUCT: {
       return {
         ...state,
@@ -62,6 +63,7 @@ export function cartReducer(state: any, action: any) {
         }),
       }
     }
+
     case ActionTypes.MODIFY_PRODUCT_TO_X_QUANTITY: {
       return {
         ...state,
@@ -75,6 +77,21 @@ export function cartReducer(state: any, action: any) {
             }
           }
         }),
+      }
+    }
+
+    case ActionTypes.MODIFY_ADDRESS: {
+      return {
+        ...state,
+        address: action.payload.address,
+      }
+    }
+
+    case ActionTypes.CLEAR_CART: {
+      return {
+        ...state,
+        products: [],
+        paymentMethod: null,
       }
     }
   }

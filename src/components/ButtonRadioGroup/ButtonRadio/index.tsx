@@ -1,11 +1,14 @@
 import React, { PropsWithChildren } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { Wrapper } from './styles'
 
-export const ButtonRadio = ({
-  children,
-  id,
-  name,
-}: PropsWithChildren<{ id: string; name: string }>) => {
+interface ButtonRadioProps extends PropsWithChildren<{}> {
+  id: string
+  name: string
+}
+
+export const ButtonRadio = ({ children, id, name }: ButtonRadioProps) => {
+  const formContext = useFormContext()
   return (
     <Wrapper>
       <input type="radio" id={id} name={name} />

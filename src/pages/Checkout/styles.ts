@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
     @media (max-width: 1152px) {
       width: 100%;
       padding: 0 16px;
-      flex-direction: column-reverse;
+      flex-direction: column;
       gap: 48px;
       align-items: center;
     }
