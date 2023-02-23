@@ -5,6 +5,8 @@ import {
   removeProductAction,
   modifyProductToXQuantityAction,
   modifyAddressAction,
+  setPaymentMethodAction,
+  clearCartAction,
 } from '../../reducers/cart/actions'
 import { cartReducer, Product } from '../../reducers/cart/reducer'
 
@@ -24,11 +26,27 @@ export interface CartContextType {
   removeProduct: (name: Coffee) => void
   modifyProductToXQuantity: (name: Coffee, quantity: number) => void
   modifyAddress: (address: CartContextType['address']) => void
+  setPaymentMethod: (paymentMethod: CartContextType['paymentMethod']) => void
+  clearCart: () => void
+}
+
+export interface CartReducerInterface {
+  products: Product[]
+  address: {
+    zipCode: number | null
+    street: string
+    number: number | null
+    complement: string
+    district: string
+    city: string
+    state: string
+  }
+  paymentMethod: 'cartaoDeCredito' | 'cartaoDeDebito' | 'dinheiro' | null
 }
 
 export const CartContext = createContext({} as CartContextType)
 
-const reducerInitialValues = {
+const reducerInitialValues: CartReducerInterface = {
   products: [],
   address: {
     zipCode: null,
@@ -49,7 +67,7 @@ interface CartContextProviderProps {
 // localStorage.getItem
 // JSON.parse(storedStateAsJSON)
 
-function initReducer(initialArg: typeof reducerInitialValues) {
+function initReducer(initialArg: CartReducerInterface) {
   const storedStateAsJSON = localStorage.getItem('@coffee-shop:cart-state')
 
   if (storedStateAsJSON) {
@@ -83,6 +101,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     const stateJSON = JSON.stringify(cartState)
 
     localStorage.setItem('@coffee-shop:cart-state', stateJSON)
+
+    // console.log('cartState', cartState)
   }, [cartState])
 
   const { products, address, paymentMethod } = cartState
@@ -103,6 +123,14 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(modifyAddressAction(address))
   }
 
+  function setPaymentMethod(paymentMethod: CartContextType['paymentMethod']) {
+    dispatch(setPaymentMethodAction(paymentMethod))
+  }
+
+  function clearCart() {
+    dispatch(clearCartAction())
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -113,6 +141,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         removeProduct,
         modifyProductToXQuantity,
         modifyAddress,
+        setPaymentMethod,
+        clearCart,
       }}
     >
       {children}

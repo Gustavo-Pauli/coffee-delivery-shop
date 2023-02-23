@@ -94,6 +94,13 @@ export function cartReducer(state: any, action: any) {
         paymentMethod: null,
       }
     }
+
+    case ActionTypes.SET_PAYMENT_METHOD: {
+      return {
+        ...state,
+        paymentMethod: action.payload.paymentMethod,
+      }
+    }
   }
 
   return state

@@ -1,5 +1,6 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren, useContext } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { CartContext } from '../../../contexts/CartContext/CartContext'
 import { Wrapper } from './styles'
 
 interface ButtonRadioProps extends PropsWithChildren<{}> {
@@ -8,10 +9,18 @@ interface ButtonRadioProps extends PropsWithChildren<{}> {
 }
 
 export const ButtonRadio = ({ children, id, name }: ButtonRadioProps) => {
-  const formContext = useFormContext()
+  const { register } = useFormContext()
+  // const cart = useContext(CartContext)
+
   return (
     <Wrapper>
-      <input type="radio" id={id} name={name} />
+      <input
+        {...register('paymentMethod')}
+        type="radio"
+        id={id}
+        name={name}
+        value={id}
+      />
       <label className="radio-label" htmlFor={id}>
         {children}
       </label>

@@ -30,6 +30,7 @@ import {
   AddressInputDistrict,
   AddressInputCity,
   AddressInputState,
+  AddressError,
 } from './styles'
 import {
   MapPinLine,
@@ -69,6 +70,10 @@ const checkoutFormValidationSchema = zod.object({
     city: zod.string().min(1, 'Necessário'),
     state: zod.string().min(1, 'Necessário'),
   }),
+  paymentMethod: zod.string({
+    required_error: 'Necessário',
+    invalid_type_error: 'Necessário',
+  }),
 })
 
 type checkoutFormData = zod.infer<typeof checkoutFormValidationSchema>
@@ -77,15 +82,6 @@ export function Checkout() {
   const cart = useContext(CartContext)
 
   const navigate = useNavigate()
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   reset,
-  //   formState: { errors },
-  // } = useForm({
-  //   resolver: zodResolver(schema),
-  // })
 
   function loadDefaultValuesFromLS() {
     const defaultValuesFromLS = localStorage.getItem('@coffee-shop:cart-state')
@@ -117,8 +113,10 @@ export function Checkout() {
     handleSubmit,
     register,
     watch,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = checkoutForm
+
+  const isSubmitDisabled = !isDirty
 
   function handleChangeItemQuantity(productName: Coffee, toQuantity: number) {
     cart.modifyProductToXQuantity(productName, toQuantity)
@@ -128,13 +126,11 @@ export function Checkout() {
     cart.removeProduct(name)
   }
 
-  // console.log('CART', cart)
-
   function handleFormSubmit(data: checkoutFormData) {
-    console.log('SUBMITOU!')
-    cart.modifyAddress(watch('address'))
-    console.log('watch', watch('address'))
-    navigate('/checkout/success')
+    console.log('SUBMITOU!', watch('address'))
+    cart.modifyAddress(watch('address')) // salva o endereço no LS
+    cart.clearCart() // esvazia os produtos do carrinho
+    navigate('/checkout/success', { state: { data } })
   }
 
   return (
@@ -160,34 +156,68 @@ export function Checkout() {
                     {...register('address.zipCode', { valueAsNumber: true })}
                     placeholder="CEP"
                   />
-                  {/* {errors.cep?.message && <p>{errors.cep?.message.toString()}</p>} */}
+                  {errors.address?.zipCode?.message && (
+                    <AddressError>
+                      {errors.address?.zipCode?.message.toString()}
+                    </AddressError>
+                  )}
                   <AddressInputStreet
                     {...register('address.street')}
                     placeholder="Rua"
                   />
+                  {errors.address?.street?.message && (
+                    <AddressError>
+                      {errors.address?.street?.message.toString()}
+                    </AddressError>
+                  )}
                   <AddressInputGroup>
                     <AddressInputNumber
                       {...register('address.number', { valueAsNumber: true })}
                       placeholder="Número"
                     />
+                    {errors.address?.number?.message && (
+                      <AddressError>
+                        {errors.address?.number?.message.toString()}
+                      </AddressError>
+                    )}
                     <AddressInputComplement
                       {...register('address.complement')}
                       placeholder="Complemento"
                     />
+                    {errors.address?.complement?.message && (
+                      <AddressError>
+                        {errors.address?.complement?.message.toString()}
+                      </AddressError>
+                    )}
                   </AddressInputGroup>
                   <AddressInputGroup>
                     <AddressInputDistrict
                       {...register('address.district')}
                       placeholder="Bairro"
                     />
+                    {errors.address?.district?.message && (
+                      <AddressError>
+                        {errors.address?.district?.message.toString()}
+                      </AddressError>
+                    )}
                     <AddressInputCity
                       {...register('address.city')}
                       placeholder="Cidade"
                     />
+                    {errors.address?.city?.message && (
+                      <AddressError>
+                        {errors.address?.city?.message.toString()}
+                      </AddressError>
+                    )}
                     <AddressInputState
                       {...register('address.state')}
                       placeholder="UF"
                     />
+                    {errors.address?.state?.message && (
+                      <AddressError>
+                        {errors.address?.state?.message.toString()}
+                      </AddressError>
+                    )}
                   </AddressInputGroup>
                   {/* {console.log(errors)} */}
                 </AddressInputWrapper>
@@ -206,25 +236,30 @@ export function Checkout() {
                   </CardHeaderTitle>
                 </CardHeader>
                 <ButtonRadioGroup>
-                  <ButtonRadio id="cartaoDeCredito" name="paymentType">
+                  <ButtonRadio id="cartaoDeCredito" name="paymentMethod">
                     <PaymentTypeButton>
                       <CreditCard size={'1rem'} />
                       <span>CARTÃO DE CRÉDITO</span>
                     </PaymentTypeButton>
                   </ButtonRadio>
-                  <ButtonRadio id="cartaoDeDebito" name="paymentType">
+                  <ButtonRadio id="cartaoDeDebito" name="paymentMethod">
                     <PaymentTypeButton>
                       <Bank size={'1rem'} />
                       <span>CARTÃO DE DÉBITO</span>
                     </PaymentTypeButton>
                   </ButtonRadio>
-                  <ButtonRadio id="dinheiro" name="paymentType">
+                  <ButtonRadio id="dinheiro" name="paymentMethod">
                     <PaymentTypeButton>
                       <Money size={'1rem'} />
                       <span>DINHEIRO</span>
                     </PaymentTypeButton>
                   </ButtonRadio>
                 </ButtonRadioGroup>
+                {errors.paymentMethod?.message && (
+                  <AddressError>
+                    {errors.paymentMethod?.message.toString()}
+                  </AddressError>
+                )}
               </Payment>
             </CompleteOrder>
           </LeftSide>
@@ -302,7 +337,7 @@ export function Checkout() {
                     </div>
                   </OrderFooterTotal>
                 </OrderFooterInfoWrapper>
-                <ConfirmOrderButton type="submit">
+                <ConfirmOrderButton type="submit" disabled={isSubmitDisabled}>
                   CONFIRMAR PEDIDO
                 </ConfirmOrderButton>
               </OrderFooter>

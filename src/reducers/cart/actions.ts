@@ -7,6 +7,7 @@ export enum ActionTypes {
   MODIFY_PRODUCT_TO_X_QUANTITY = 'MODIFY_PRODUCT_TO_X_QUANTITY',
   MODIFY_ADDRESS = 'MODIFY_ADDRESS',
   CLEAR_CART = 'CLEAR_CART',
+  SET_PAYMENT_METHOD = 'SET_PAYMENT_METHOD',
 }
 
 export function addOrIncreaseProductAction(
@@ -48,6 +49,23 @@ export function modifyAddressAction(address: CartContextType['address']) {
     type: ActionTypes.MODIFY_ADDRESS,
     payload: {
       address,
+    },
+  }
+}
+
+export function clearCartAction() {
+  return {
+    type: ActionTypes.CLEAR_CART,
+  }
+}
+
+export function setPaymentMethodAction(
+  paymentMethod: CartContextType['paymentMethod'],
+) {
+  return {
+    type: ActionTypes.SET_PAYMENT_METHOD,
+    payload: {
+      paymentMethod,
     },
   }
 }

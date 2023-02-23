@@ -14,6 +14,10 @@ export const defaultTheme = {
   'base-button': '#E6E5E5',
   'base-input': '#EDEDED',
   'base-card': '#F3F2F2',
+  // 'base-error': '#8B0000',
+  // generate a error hex code that match with #4B2995 and #DBAC2C
+  'base-error': '#E60000',
+
   background: '#FAFAFA',
 
   white: '#FFFFFF',

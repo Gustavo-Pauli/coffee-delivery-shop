@@ -183,6 +183,21 @@ export const AddressInputNumber = styled(AddressInput)`
 `
 export const AddressInputComplement = styled(AddressInput)`
   flex: 1 1 0;
+
+  ::after {
+    content: 'Opcional';
+    background: red;
+    width: 100%;
+    height: 100%;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 160%;
+    color: ${(props) => props.theme['base-label']};
+
+    margin-right: 12px;
+  }
 `
 export const AddressInputDistrict = styled(AddressInput)`
   width: 200px;
@@ -358,6 +373,14 @@ export const ConfirmOrderButton = styled.button`
     background: ${(props) => props.theme['yellow-dark']};
     cursor: pointer;
   }
+
+  :disabled {
+    background: ${(props) => props.theme['base-button']};
+    /* background: ${(props) => props.theme.yellow}; */
+    color: ${(props) => props.theme['base-text']};
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
 `
 
 export const OrderFooter = styled.div`
@@ -401,4 +424,12 @@ export const OrderFooterTotal = styled(OrderFooterInfo)`
     font-weight: 700;
     font-size: 1.25rem;
   }
+`
+
+export const AddressError = styled.p`
+  color: ${(props) => props.theme['base-error']};
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
 `
